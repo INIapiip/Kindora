@@ -154,6 +154,11 @@ def main():
             <p>Senang bisa ngobrol bareng kamu dari {st.session_state.user_city} ✨</p>
         </div>
         """, unsafe_allow_html=True)
+        if "messages" not in st.session_state:
+            st.session_state.messages = [{
+                "role": "assistant",
+                "content": f"Halo {st.session_state.user_name}! Aku senang bisa menemani kamu. Cerita apa hari ini?"
+            }]
 
     initial_greeting = "Halo"
 
