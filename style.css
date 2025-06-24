@@ -1,10 +1,16 @@
 /* Background Utama dengan Love Jatuh */
 html, body, .stApp {
+    height: 100vh; /* full tinggi layar */
+    width: 100%;
+    margin: 0;
+    padding: 0;
     background: linear-gradient(135deg, #ffe0f0 0%, #ffaacc 100%) !important;
     color: #333 !important;
     font-family: 'Segoe UI', sans-serif;
     background-attachment: fixed;
     overflow-x: hidden;
+    
+
 }
 
 /* Love jatuh animasi */
@@ -90,7 +96,7 @@ p {
 /* Chat Input Bawah */
 .stChatInput textarea, 
 .stChatInput input {
-    background-color: #e46b6b !important;
+    background-color: #2a2a2a !important;
     color: #fff !important;
     border-radius: 10px;
     padding: 0.5rem;
