@@ -36,6 +36,7 @@ def load_css():
         }
         """
         st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
+        st.markdown("<div class='bg-animation'></div>", unsafe_allow_html=True)
 
 def get_google_search_results(query: str) -> str:
     try:
