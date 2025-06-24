@@ -1,0 +1,80 @@
+/* General Body Styles */
+body {
+    background-color: #f0f4f8; /* Soft light background */
+    font-family: 'Arial', sans-serif; /* Clean and readable font */
+    color: #333; /* Dark text for readability */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Chat Container */
+.chat-container {
+    background-color: #ffffff; /* White background for chat box */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    max-width: 600px; /* Limiting width for better readability */
+    margin: auto; /* Centering the chat box */
+}
+
+/* Header Styles */
+.header {
+    font-size: 24px; /* Larger text for header */
+    color: #4a90e2; /* A calming blue for header */
+    text-align: center;
+    margin-bottom: 20px; /* Spacing below header */
+}
+
+/* Message Styles */
+.message {
+    border-radius: 5px; /* Slightly rounded message boxes */
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* User Message */
+.user {
+    background-color: #e1f5fe; /* Light blue for user messages */
+    text-align: right;
+}
+
+/* Chatbot Message */
+.bot {
+    background-color: #ffe0b2; /* Light orange for bot messages */
+    text-align: left;
+}
+
+/* Input Area */
+.input-area {
+    display: flex; /* Flexbox for input and button */
+    justify-content: space-between; /* Space between input and button */
+}
+
+.input-area input {
+    flex: 1; /* Take up remaining space */
+    padding: 10px;
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded input field */
+    margin-right: 10px; /* Space between input and button */
+}
+
+.input-area button {
+    background-color: #4a90e2; /* Blue button */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 5px; /* Rounded button */
+    cursor: pointer; /* Pointer on hover */
+}
+
+.input-area button:hover {
+    background-color: #357ab8; /* Darker blue on hover */
+}
+
+/* Footer Styles */
+.footer {
+    text-align: center; /* Centralized footer */
+    margin-top: 20px; /* Spacing above footer */
+    font-size: 12px; /* Smaller text */
+    color: #888; /* Grey color for footer */
+}
