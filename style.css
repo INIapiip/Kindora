@@ -1,6 +1,6 @@
 /* Background Utama dengan Love Jatuh */
 html, body, .stApp {
-    height: 100vh; /* full tinggi layar */
+    height: 100vh;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -9,8 +9,6 @@ html, body, .stApp {
     font-family: 'Segoe UI', sans-serif;
     background-attachment: fixed;
     overflow-x: hidden;
-    
-
 }
 
 /* Love jatuh animasi */
@@ -55,7 +53,7 @@ p {
     color: #fff !important;
 }
 
-/* Bubble Chat Umum */
+/* Bubble Chat */
 .stChatMessage {
     border-radius: 20px;
     padding: 1rem;
@@ -66,20 +64,20 @@ p {
     animation: fadeIn 0.5s ease;
 }
 
-/* Bubble User (chat) */
+/* Bubble User */
 .stChatMessage[data-testid="user"] {
     background-color: #333 !important;
     color: #db82c1 !important;
     text-align: right;
 }
 
-/* Bubble AI Biasa */
+/* Bubble AI */
 .stChatMessage[data-testid="assistant"] {
-    background-color: #bb377d !important; /* Pink soft yang lebih kalem */
+    background-color: #bb377d !important;
     color: #333 !important;
 }
 
-/* Bubble AI Pertama (Sambutan) */
+/* Sambutan AI */
 .stChatMessage[data-testid="assistant"]:first-of-type {
     background-color: #bb377d !important;
     color: #333 !important;
@@ -87,13 +85,13 @@ p {
     animation: glowPulse 2s ease-in-out infinite;
 }
 
-/* Form Input Nama & Kota */
+/* Form Input */
 .stTextInput>div>input {
     background-color: #fff !important;
     color: #333 !important;
 }
 
-/* Chat Input Bawah */
+/* Chat Input */
 .stChatInput textarea, 
 .stChatInput input {
     background-color: #ffffff00 !important;
@@ -102,7 +100,7 @@ p {
     padding: 0.5rem;
 }
 
-/* Tombol Umum */
+/* Tombol */
 .stButton>button {
     background-color: #ff99c8 !important;
     color: #fff !important;
@@ -137,14 +135,27 @@ p {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Override Biar Mode Terang/Gelap Stabil */
+/* Override Mode Terang/Gelap */
 html[data-theme="light"], 
 html[data-theme="dark"] {
     --text-color: #333 !important;
     --background-color: #fff !important;
 }
+/** CSS untuk background drag & drop area agar lebih cantik pink soft **/
+.stFileUploader {
+    background: #ffe6f0 !important;
+    border-radius: 12px;
+    padding: 0.5rem;
+    border: 1px dashed #ff80bf !important;
+    color: #d63384;
+}
 
-/* Hilangkan Padding Default Streamlit */
+/* Hover saat drag file */
+.stFileUploader:hover {
+    background: #ffd6eb !important;
+}
+
+/* Hilangkan Padding Streamlit */
 .main .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
