@@ -41,7 +41,7 @@ class GeminiCallbackHandler(BaseCallbackHandler):
     def on_llm_end(self, response, **kwargs: Any) -> None:
         """Handle response kosong"""
         if not self.response.strip():
-            self.response = "Maaf, saya tidak mendapat respon yang valid."
+            self.response = "Hai, Saya Teman kamu"
         self._update_display(True)
         
     def _update_display(self, final: bool):
