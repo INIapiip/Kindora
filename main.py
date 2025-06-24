@@ -129,26 +129,33 @@ def run_agent(user_input: str, retriever: FaissRetriever, pdf_content: Optional[
 def main():
     st.set_page_config(page_title="Kindora Mental Health", page_icon="🧠", layout="centered")
     load_css()
-    st.markdown("""
-    <div class='animated-header'>
-        <h1>🧠 Asisten Kesehatan Mental Indonesia</h1>
-        <p>Didukung oleh AI dan Google Search</p>
-    </div>
-""", unsafe_allow_html=True)
+    if "user_name" not in st.session_state or "user_city" not in st.session_state:
+        st.markdown("""
+        <div class='header'>
+            <h1>💖 Selamat Datang di Chatbot Kesehatan Mental</h1>
+            <p>Sebelum ngobrol, kenalan dulu yuk~</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    initial_greeting = """Halo! Saya adalah Asisten Kesehatan Mental AI Anda.
+        name = st.text_input("Nama Kamu 💫")
+        city = st.text_input("Asal Kota 🏡")
+        
+        if st.button("Mulai Chat 💖"):
+            if name.strip() and city.strip():
+                st.session_state.user_name = name.strip()
+                st.session_state.user_city = city.strip()
+                st.rerun()
+            else:
+                st.warning("Nama dan Kota wajib diisi dulu ya!")
+    else:
+        st.markdown(f"""
+        <div class='header'>
+            <h1>💖 Hai {st.session_state.user_name}!</h1>
+            <p>Senang bisa ngobrol bareng kamu dari {st.session_state.user_city} ✨</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-**Apa yang bisa saya bantu?**
-
-Anda bisa bertanya tentang data kesehatan mental umum dari database kami, seperti:
-* `Apa yang dimaksud dengan penyakit mental?`
-* `Bagaimana cara mengatasi kecemasan?`
-* `Berikan rekomendasi untuk meningkatkan kesehatan mental.`
-
-**Anda juga bisa mengunggah dokumen kesehatan mental (PDF) di sidebar.** Setelah diunggah, Anda bisa langsung bertanya tentang isinya, misalnya:
-* `Apa rekomendasi dari dokumen ini?`
-* `Sebutkan semua terapi yang dianjurkan dalam file tersebut.`
-"""
+    initial_greeting = "Halo"
 
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": initial_greeting}]
