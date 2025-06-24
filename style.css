@@ -1,37 +1,145 @@
-body, .stApp {
-    background-color: #d6eaff;
-    color: #ab0000;
+/* Background Utama dengan Love Jatuh */
+html, body, .stApp {
+    background: linear-gradient(135deg, #ffe0f0 0%, #ffaacc 100%) !important;
+    color: #333 !important;
+    font-family: 'Segoe UI', sans-serif;
+    background-attachment: fixed;
+    overflow-x: hidden;
 }
 
-.chat-title {
+/* Love jatuh animasi */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/WpZrT9V/love-small.png');
+    background-size: 100px;
+    background-repeat: repeat;
+    opacity: 0.05;
+    z-index: -1;
+    animation: loveFall 30s linear infinite;
+}
+
+@keyframes loveFall {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 1000px; }
+}
+
+/* Header Cantik */
+.header {
     text-align: center;
-    color: #9e0000;
-    font-size: 2.5rem;
-    margin-top: 1rem;
-}
-
-.subtitle {
-    text-align: center;
-    color: #d72822;
-    margin-bottom: 2rem;
-}
-
-.chat-bubble {
+    padding: 1.2rem;
+    color: #fff !important;
+    background: rgba(255, 105, 180, 0.85);
     border-radius: 15px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: float 6s ease-in-out infinite;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #fff !important;
+}
+
+/* Bubble Chat Umum */
+.stChatMessage {
+    border-radius: 20px;
     padding: 1rem;
     margin: 0.5rem 0;
-    width: fit-content;
-    max-width: 80%;
-    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    color: #333 !important;
+    animation: fadeIn 0.5s ease;
 }
 
-.chat-bubble.user {
-    background-color: #4a90e2;
-    color: white;
-    margin-left: auto;
+/* Bubble User (chat) */
+.stChatMessage[data-testid="user"] {
+    background-color: #333 !important;
+    color: #fff !important;
+    text-align: right;
 }
 
-.chat-bubble.bot {
-    background-color: #7cf2e0;
-    color: black;
+/* Bubble AI Biasa */
+.stChatMessage[data-testid="assistant"] {
+    background-color: #bb377d !important; /* Pink soft yang lebih kalem */
+    color: #333 !important;
+}
+
+/* Bubble AI Pertama (Sambutan) */
+.stChatMessage[data-testid="assistant"]:first-of-type {
+    background-color: #bb377d !important;
+    color: #333 !important;
+    border: 2px solid #ff66a3;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Form Input Nama & Kota */
+.stTextInput>div>input {
+    background-color: #fff !important;
+    color: #333 !important;
+}
+
+/* Chat Input Bawah */
+.stChatInput textarea, 
+.stChatInput input {
+    background-color: #333 !important;
+    color: #fff !important;
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+/* Tombol Umum */
+.stButton>button {
+    background-color: #ff99c8 !important;
+    color: #fff !important;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+.stButton>button:hover {
+    background-color: #ff66a3 !important;
+    transform: scale(1.05);
+}
+
+/* Animasi */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 5px #ff66a3; }
+    50% { box-shadow: 0 0 15px #ff66a3; }
+    100% { box-shadow: 0 0 5px #ff66a3; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Override Biar Mode Terang/Gelap Stabil */
+html[data-theme="light"], 
+html[data-theme="dark"] {
+    --text-color: #333 !important;
+    --background-color: #fff !important;
+}
+
+/* Hilangkan Padding Default Streamlit */
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
