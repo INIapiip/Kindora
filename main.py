@@ -73,7 +73,7 @@ def run_agent(user_input: str, retriever: FaissRetriever, pdf_content: Optional[
     try:
         tools = [
             Tool(name='cari_info_kesehatan_mental', func=lambda q: get_professional_help(q, retriever), description="Gunakan untuk menjawab pertanyaan spesifik tentang kesehatan mental dari database."),
-            Tool(name='beri_rekomendasi_kesehatan_mental', func=lambda q: (q, retriever), description="Gunakan untuk memberikan rekomendasi kesehatan mental berdasarkan topik dari database."),
+            Tool(name='beri_rekomendasi_kesehatan_mental', func=lambda q: get_coping_tips (), description="Gunakan untuk memberikan rekomendasi kesehatan mental berdasarkan topik dari database."),
             Tool(name='pencarian_internet_google', func=search, description="Gunakan HANYA untuk mencari informasi kesehatan mental yang SANGAT BARU."),
             Tool(name='terjemah_bahasa', func=TranslationService, description="Gunakan untuk menerjemahkan."),
             Tool(name='dapatkan_tanggal_sekarang', func=show_current_date, description="Gunakan untuk mengetahui tanggal dan waktu saat ini.")
@@ -206,24 +206,32 @@ Anda bisa bertanya tentang data kesehatan mental umum dari database kami, sepert
             avatar = "🧑‍💻" if message["role"] == "user" else "🧠"
             with st.chat_message(message["role"], avatar=avatar):
                 st.markdown(message["content"])
+                if "time" in message:
+                    st.caption(f"🕒 {message['time']}")
+    
+            
 
     if user_input := st.chat_input("Tanyakan sesuatu..."):
         timestamp = datetime.datetime.now().strftime("%H:%M:%S")
         st.session_state.messages.append({"role": "user", "content": user_input})
         with st.chat_message("user", avatar="🧑‍💻"):
             st.markdown(user_input)
+            st.caption(f"🕒 {timestamp}")
 
         with st.chat_message("assistant", avatar="🧠"):
             with st.spinner("Asisten sedang berpikir..."):
                 try:
                     pdf_context = st.session_state.get("pdf_content")
                     response_text = run_agent(user_input, retriever, pdf_content=pdf_context)
+                    response_time = datetime.datetime.now().strftime("%H:%M:%S")
                     st.markdown(response_text)
-                    timestamp = datetime.datetime.now().strftime("%H:%M:%S")
-                    st.session_state.messages.append({"role": "assistant", "content": response_text})
+                    st.caption(f"🕒 {response_time}")
+                    st.session_state.messages.append({"role": "assistant", "content": response_text, "time": response_time})
                 except Exception as e:
                     st.error(f"Maaf, terjadi kesalahan fatal: {e}")
                     st.session_state.messages.pop()
 
 if __name__ == "__main__":
     main()
+
+    
