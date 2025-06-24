@@ -54,7 +54,7 @@ p {
     border-radius: 20px;
     padding: 1rem;
     margin: 0.5rem 0;
-    background: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(190, 92, 159, 0.9) !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     color: #333 !important;
     animation: fadeIn 0.5s ease;
@@ -63,7 +63,7 @@ p {
 /* Bubble User (chat) */
 .stChatMessage[data-testid="user"] {
     background-color: #333 !important;
-    color: #fff !important;
+    color: #db82c1 !important;
     text-align: right;
 }
 
@@ -90,7 +90,7 @@ p {
 /* Chat Input Bawah */
 .stChatInput textarea, 
 .stChatInput input {
-    background-color: #333 !important;
+    background-color: #e46b6b !important;
     color: #fff !important;
     border-radius: 10px;
     padding: 0.5rem;
