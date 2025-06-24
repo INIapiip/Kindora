@@ -160,3 +160,22 @@ html[data-theme="dark"] {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
+/* Tambah background hewan kecil jalan */
+.bg-animation {
+    position: fixed;
+    bottom: 20px;
+    left: -100px;
+    width: 80px;
+    height: 80px;
+    background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjlmMzN6aXcydzlvZWxjcWI5ZHY1a3VqZjR0amwzMms4dTg5N3dvbCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/vXB04Slp3rumA/giphy.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: jalan 15s linear infinite;
+    z-index: 999;
+}
+
+@keyframes jalan {
+    0% { left: -100px; }
+    100% { left: 110%; }
+}
+
