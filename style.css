@@ -96,7 +96,7 @@ p {
 /* Chat Input Bawah */
 .stChatInput textarea, 
 .stChatInput input {
-    background-color: #2a2a2a !important;
+    background-color: #ffffff00 !important;
     color: #fff !important;
     border-radius: 10px;
     padding: 0.5rem;
