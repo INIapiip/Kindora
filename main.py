@@ -127,12 +127,14 @@ def run_agent(user_input: str, retriever: FaissRetriever, pdf_content: Optional[
         return f"❌ Terjadi kesalahan: {str(e)}"
 
 def main():
-    st.set_page_config(page_title="Asisten Kesehatan Mental AI", page_icon="🧠", layout="centered")
+    st.set_page_config(page_title="Kindora Mental Health", page_icon="🧠", layout="centered")
     load_css()
     st.markdown("""
-        <header><h1>🧠 Asisten Kesehatan Mental Indonesia</h1>
-        <p>Didukung oleh AI dan Google Search</p></header>
-    """, unsafe_allow_html=True)
+    <div class='animated-header'>
+        <h1>🧠 Asisten Kesehatan Mental Indonesia</h1>
+        <p>Didukung oleh AI dan Google Search</p>
+    </div>
+""", unsafe_allow_html=True)
 
     initial_greeting = """Halo! Saya adalah Asisten Kesehatan Mental AI Anda.
 
