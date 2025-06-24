@@ -39,27 +39,22 @@ def get_google_search_results(query: str) -> str:
             return f"Maaf, saya tidak dapat menemukan hasil yang relevan di Google untuk '{query}'."
 
         url_list = "\n".join([f"{i+1}. {url}" for i, url in enumerate(results)])
-        final_answer = (
-            f"Tentu, berikut adalah {len(results)} hasil pencarian teratas untuk '{query}':\n"
-            f"{url_list}\n\n"
-            "**Penting**: Harap evaluasi sendiri kredibilitas dan keakuratan informasi dari situs-situs tersebut."
+        return (
+            f"Berikut hasil pencarian untuk '{query}':\n{url_list}\n\n"
+            "**Catatan:** Harap evaluasi kredibilitas situs secara mandiri."
         )
-        return final_answer
     except Exception as e:
-        return f"Terjadi kesalahan saat melakukan pencarian Google: {str(e)}"
+        return f"Kesalahan saat pencarian Google: {str(e)}"
 
 def run_agent(user_input: str, retriever: FaissRetriever, pdf_content: Optional[str] = None) -> str:
     system_prompt = ""
     if pdf_content:
         system_prompt = f"""
-        PERHATIAN: Pengguna telah mengunggah dokumen. Jawab HANYA berdasarkan dokumen berikut:
-
+        PERHATIAN: Pengguna mengunggah dokumen. Jawab HANYA berdasarkan:
         --- DOKUMEN ---
         {pdf_content}
         --- AKHIR DOKUMEN ---
         """
-
-    final_input = f"{system_prompt}\n\nPertanyaan: {user_input}"
 
     tools = [
         Tool(name='cari_info_kesehatan_mental', func=lambda q: get_professional_help(q, retriever), description="Jawab spesifik dari database."),
@@ -79,12 +74,10 @@ def run_agent(user_input: str, retriever: FaissRetriever, pdf_content: Optional[
 
     if pdf_content:
         prompt = f"""
-        Kamu adalah asisten kesehatan mental. Berdasarkan dokumen berikut, jawab pertanyaan pengguna:
-
+        Kamu adalah asisten kesehatan mental. Jawab berdasarkan dokumen berikut:
         --- DOKUMEN ---
         {pdf_content}
         --- AKHIR DOKUMEN ---
-
         Pertanyaan: {user_input}
         """
         return str(llm.invoke(prompt).content)
@@ -94,17 +87,15 @@ def run_agent(user_input: str, retriever: FaissRetriever, pdf_content: Optional[
 
     if context.strip():
         prompt = f"""
-        Kamu adalah asisten kesehatan mental. Berdasarkan database berikut, jawab pertanyaan pengguna:
-
+        Kamu adalah asisten kesehatan mental. Jawab berdasarkan database berikut:
         --- DATABASE ---
         {context}
         --- AKHIR DATABASE ---
-
         Pertanyaan: {user_input}
         """
         return str(llm.invoke(prompt).content)
 
-    st.info("🔍 Jawaban tidak ditemukan di database. Mencoba dari internet...")
+    st.info("🔍 Tidak ada jawaban di database. Mencoba dari internet...")
     return get_google_search_results(user_input)
 
 def main():
@@ -145,6 +136,33 @@ def main():
     if "retriever" not in st.session_state:
         st.session_state.retriever = FaissRetriever(index_path="data/faiss_index")
 
+    with st.sidebar:
+        st.header(f"📜 Riwayat {st.session_state.user_name}")
+        if st.session_state.messages:
+            for msg in st.session_state.messages:
+                if msg["role"] != "system":
+                    label = "👤 Kamu" if msg["role"] == "user" else "🤖 AI"
+                    isi = msg["content"][:40] + "..." if len(msg["content"]) > 40 else msg["content"]
+                    st.write(f"{label}: {isi}")
+        else:
+            st.info("Belum ada percakapan.")
+
+        if st.button("🗑️ Hapus Riwayat", use_container_width=True):
+            st.session_state.messages = [{"role": "assistant", "content": "Riwayat dihapus. Yuk mulai lagi."}]
+            st.session_state.pdf_content = None
+            st.success("Riwayat berhasil dihapus.")
+
+        st.divider()
+        uploaded_file = st.file_uploader("📄 Upload PDF (Opsional)", type=["pdf"])
+        if uploaded_file:
+            with st.spinner("Membaca dokumen..."):
+                hasil = extract_mental_health_document(uploaded_file)
+                if 'error' in hasil:
+                    st.error(hasil['error'])
+                else:
+                    st.session_state.pdf_content = hasil['full_text']
+                    st.success("Dokumen berhasil diproses!")
+
     for msg in st.session_state.messages:
         avatar = "🧑‍💻" if msg["role"] == "user" else "🧠"
         with st.chat_message(msg["role"], avatar=avatar):
@@ -160,26 +178,6 @@ def main():
                 response = run_agent(user_input, st.session_state.retriever, st.session_state.pdf_content)
                 st.session_state.messages.append({"role": "assistant", "content": response})
                 st.markdown(response)
-
-    st.divider()
-    col1, col2 = st.columns([1, 1.5])
-    with col1:
-        if st.button("🗑️ Hapus Riwayat", use_container_width=True):
-            st.session_state.messages = [{"role": "assistant", "content": "Riwayat dihapus. Yuk mulai lagi."}]
-            st.session_state.pdf_content = None
-            st.success("Riwayat berhasil dihapus.")
-
-    with col2:
-        uploaded_file = st.file_uploader("", type=["pdf"], label_visibility="collapsed")
-        st.caption("📄 Upload Dokumen PDF")
-        if uploaded_file:
-            with st.spinner("Membaca dokumen..."):
-                result = extract_mental_health_document(uploaded_file)
-                if 'error' in result:
-                    st.error(result['error'])
-                else:
-                    st.session_state.pdf_content = result['full_text']
-                    st.success("Dokumen berhasil diproses!")
 
 if __name__ == "__main__":
     main()
