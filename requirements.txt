@@ -5,7 +5,7 @@ streamlit
 langchain
 langchain-google-genai==2.1.5
 faiss-cpu
-
+langchain-cohere
 # GOOGLE GEMINI SDK (VERSI COCOK)
 google-ai-generativelanguage==0.6.18
 
