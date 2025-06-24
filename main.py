@@ -29,7 +29,13 @@ load_dotenv()
 
 def load_css():
     with open("style.css") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        css_content = f.read()
+        css_content += """
+        section[data-testid="stSidebar"] {
+            background-color: #bb377d;
+        }
+        """
+        st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
 
 def get_google_search_results(query: str) -> str:
     try:
