@@ -74,13 +74,13 @@ p {
 /* Bubble AI */
 .stChatMessage[data-testid="assistant"] {
     background-color: #bb377d !important;
-    color: #333 !important;
+    color: #fff !important;
 }
 
 /* Sambutan AI */
 .stChatMessage[data-testid="assistant"]:first-of-type {
     background-color: #bb377d !important;
-    color: #333 !important;
+    color: #fff !important;
     border: 2px solid #ff66a3;
     animation: glowPulse 2s ease-in-out infinite;
 }
@@ -141,7 +141,8 @@ html[data-theme="dark"] {
     --text-color: #333 !important;
     --background-color: #fff !important;
 }
-/** CSS untuk background drag & drop area agar lebih cantik pink soft **/
+
+/* Background area upload file */
 .stFileUploader {
     background: #ffe6f0 !important;
     border-radius: 12px;
@@ -150,25 +151,24 @@ html[data-theme="dark"] {
     color: #d63384;
 }
 
-/* Hover saat drag file */
 .stFileUploader:hover {
     background: #ffd6eb !important;
 }
 
-/* Hilangkan Padding Streamlit */
+/* Hilangkan Padding */
 .main .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
-/* Tambah background hewan kecil jalan */
+
+/* Hewan kecil / Bintang Jalan */
 .bg-animation {
     position: fixed;
     bottom: 20px;
     left: -100px;
     width: 80px;
     height: 80px;
-    background-image: url('https://i.ibb.co/zN3G3YZ/cat-walking.gif');
-    background-image: url('https://i.ibb.co/3h2pLxq/star.gif');
+    background-image: url('https://i.ibb.co/3h2pLxq/star.gif'); /* Ganti ke kucing kalau mau */
     background-size: contain;
     background-repeat: no-repeat;
     animation: jalan 15s linear infinite;
@@ -179,4 +179,3 @@ html[data-theme="dark"] {
     0% { left: -100px; }
     100% { left: 110%; }
 }
-
