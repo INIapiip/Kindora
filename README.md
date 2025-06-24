@@ -65,9 +65,9 @@ streamlit run main.py
 
 ## 🎨 Preview Tampilan
 
-| Chat Bot                                                             | Upload PDF                                                         |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| ![chat](https://github.com/INIapiip/Kindora/assets/preview_chat.png) | ![pdf](https://github.com/INIapiip/Kindora/assets/preview_pdf.png) |
+|                                             CHATBOT KINDORA                                                |                  
+| -----------------------------------------------------------------------------------------------------------|
+| ![chat](data/Tampilan.png)                                       |
 
 ---
 
