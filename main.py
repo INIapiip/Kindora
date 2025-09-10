@@ -117,8 +117,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
-        name = st.text_input("Nama Kamu 💫")
-        api_key = st.text_input("API Token Gemini 🔑", type="password")
+        name = st.text_input("Nama Kamu 💫")
 
         if st.button("Mulai Chat 💖"):
             if name.strip() and api_key.strip():
